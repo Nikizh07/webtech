@@ -56,7 +56,7 @@ app.delete('/api/tasks/:id', (req, res) => {
 });
 
 // Catch-all route for frontend
-app.get('*', (req, res) => {
+app.get('/{*path}', (req, res) => {
     res.redirect('/');
 });
 
