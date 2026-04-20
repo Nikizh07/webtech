@@ -1,0 +1,16 @@
+{% extends "base.html" %}
+{% block content %}
+<div class="card dashboard-card center-text">
+    <h2>Welcome back, {{ username | capitalize }}!</h2>
+    
+    <div class="balance-display">
+        <h3>Current Balance</h3>
+        <p class="amount">${{ balance }}</p>
+    </div>
+    
+    <div class="actions">
+        <button class="btn btn-secondary" onclick="alert('Feature coming soon!')">Transfer Funds</button>
+        <a href="{{ url_for('home') }}" class="btn btn-danger">Secure Logout</a>
+    </div>
+</div>
+{% endblock %}

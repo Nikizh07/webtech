@@ -1,0 +1,17 @@
+{% extends "base.html" %}
+{% block content %}
+<div class="card login-card">
+    <h2 class="center-text">Secure Login</h2>
+    <form method="POST" action="{{ url_for('login') }}">
+        <div class="form-group">
+            <label for="username">Username</label>
+            <input type="text" id="username" name="username" required>
+        </div>
+        <div class="form-group">
+            <label for="password">Password</label>
+            <input type="password" id="password" name="password" required>
+        </div>
+        <button type="submit" class="btn full-width">Sign In</button>
+    </form>
+</div>
+{% endblock %}

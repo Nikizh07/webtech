@@ -1,57 +1,36 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <title>Task Manager</title>
-  <style>
-    body { font-family: sans-serif; background: #fafafa; text-align: center; padding: 50px; }
-    .container { max-width: 400px; margin: auto; background: white; padding: 20px; border-radius: 10px; box-shadow: 0 4px 6px rgba(0,0,0,0.1); }
-    input { width: 70%; padding: 10px; margin-right: 5px; }
-    button { padding: 10px; cursor: pointer; background: #007bff; color: white; border: none; border-radius: 5px; }
-    ul { list-style: none; padding: 0; text-align: left; }
-    li { background: #eee; margin: 10px 0; padding: 10px; display: flex; justify-content: space-between; border-radius: 5px; }
-    .delete-btn { background: #dc3545; padding: 5px 10px; }
-  </style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Task Manager Pro</title>
+    <link rel="stylesheet" href="style.css">
 </head>
 <body>
-  <div class="container">
-    <h2>Task Manager</h2>
-    <input type="text" id="taskInput" placeholder="Enter new task">
-    <button onclick="addTask()">Add</button>
-    <ul id="taskList"></ul>
-  </div>
+    <div class="app-container">
+        <header>
+            <h1>Task Manager</h1>
+            <p>Keep track of your daily activities</p>
+        </header>
 
-  <script>
-    async function fetchTasks() {
-      const res = await fetch('/api/tasks');
-      const tasks = await res.json();
-      const list = document.getElementById('taskList');
-      list.innerHTML = '';
-      tasks.forEach(t => {
-        const li = document.createElement('li');
-        li.innerHTML = `<span>${t.title}</span> <button class="delete-btn" onclick="deleteTask(${t.id})">Del</button>`;
-        list.appendChild(li);
-      });
-    }
+        <section class="task-input-section">
+            <form id="taskForm">
+                <input type="text" id="taskInput" placeholder="What needs to be done?" required autocomplete="off">
+                <button type="submit" id="addTaskBtn">Add Task</button>
+            </form>
+            <div id="errorMessage" class="error-msg hidden"></div>
+        </section>
 
-    async function addTask() {
-      const title = document.getElementById('taskInput').value;
-      if (!title) return;
-      await fetch('/api/tasks', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ title })
-      });
-      document.getElementById('taskInput').value = '';
-      fetchTasks();
-    }
+        <section class="tasks-section">
+            <div class="task-stats">
+                <span id="totalTasks">Total: 0</span>
+            </div>
+            <ul id="taskList" class="task-list">
+                <!-- Tasks will be injected here -->
+            </ul>
+        </section>
+    </div>
 
-    async function deleteTask(id) {
-      await fetch(`/api/tasks/${id}`, { method: 'DELETE' });
-      fetchTasks();
-    }
-
-    fetchTasks();
-  </script>
+    <script src="script.js"></script>
 </body>
 </html>

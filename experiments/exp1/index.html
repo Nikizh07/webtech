@@ -1,36 +1,65 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <title>My Portfolio</title>
-  <style>
-    body { font-family: sans-serif; line-height: 1.5; background: #f4f4f4; margin: 0; padding: 20px; }
-    header { background: #333; color: white; padding: 15px; text-align: center; }
-    .container { max-width: 800px; margin: auto; background: white; padding: 20px; box-shadow: 0 0 10px rgba(0,0,0,0.1); }
-    h2 { color: #4CAF50; }
-    ul { list-style: none; padding: 0; }
-    li { display: inline-block; background: #4CAF50; color: white; padding: 5px 10px; margin: 5px; border-radius: 3px; }
-  </style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Harini's Portfolio</title>
+    <link rel="stylesheet" href="style.css">
 </head>
 <body>
-  <div class="container">
-    <header>
-      <h1>Harini's Portfolio</h1>
+    <header class="navbar">
+        <div class="container header-container">
+            <h1>Harini's Developer Portfolio</h1>
+            <nav>
+                <ul>
+                    <li><a href="#about">About</a></li>
+                    <li><a href="#skills">Skills</a></li>
+                    <li><a href="#contact">Contact</a></li>
+                </ul>
+            </nav>
+        </div>
     </header>
-    <section>
-      <h2>About Me</h2>
-      <p>Hello! I'm Harini, a passionate web developer learning new technologies.</p>
-    </section>
-    <section>
-      <h2>My Skills</h2>
-      <ul>
-        <li>HTML</li><li>CSS</li><li>JavaScript</li><li>PHP</li>
-      </ul>
-    </section>
-    <section>
-      <h2>Contact</h2>
-      <p>Email me at harini@student.college.edu</p>
-    </section>
-  </div>
+
+    <main class="container">
+        <section id="about" class="about-section card">
+            <h2>About Me</h2>
+            <p>Hello! I'm <span class="highlight">Harini</span>, a passionate web developer eager to learn new web technologies and build efficient, scalable web applications.</p>
+            <p>Currently studying Computer Science and creating engaging digital experiences.</p>
+        </section>
+
+        <section id="skills" class="skills-section card">
+            <h2>My Skills</h2>
+            <ul class="skills-list">
+                <li>HTML5</li>
+                <li>CSS3 & Flexbox</li>
+                <li>JavaScript (ES6+)</li>
+                <li>PHP & MySQL</li>
+                <li>Version Control (Git)</li>
+            </ul>
+        </section>
+
+        <section id="contact" class="contact-section card">
+            <h2>Get in Touch</h2>
+            <form id="contactForm" class="contact-form">
+                <div class="form-group">
+                    <label for="name">Name:</label>
+                    <input type="text" id="name" name="name" required placeholder="Your Name">
+                </div>
+                <div class="form-group">
+                    <label for="email">Email:</label>
+                    <input type="email" id="email" name="email" required placeholder="Your Email">
+                </div>
+                <div class="form-group">
+                    <label for="message">Message:</label>
+                    <textarea id="message" name="message" required placeholder="Your Message" rows="4"></textarea>
+                </div>
+                <button type="submit" class="btn">Send Message</button>
+            </form>
+        </section>
+    </main>
+
+    <footer class="footer">
+        <p>&copy; 2025 Harini. Designed for Web Technologies Project.</p>
+    </footer>
 </body>
 </html>
