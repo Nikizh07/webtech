@@ -2,24 +2,39 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Rock Paper Scissors</title>
-  <link rel="stylesheet" href="style.css">
+  <style>
+    body { font-family: sans-serif; text-align: center; background: #eee; padding: 50px; }
+    .game { background: white; padding: 20px; border-radius: 10px; max-width: 400px; margin: auto; box-shadow: 0 0 10px #ccc; }
+    button { font-size: 16px; margin: 5px; padding: 10px; cursor: pointer; }
+  </style>
 </head>
 <body>
-  <div class="game-container">
+  <div class="game">
     <h1>Rock Paper Scissors</h1>
-    <p>Choose your move:</p>
-    <div class="choices">
-      <img src="rock.png" alt="Rock" id="rock" onclick="playGame('rock')">
-      <img src="paper.jpeg" alt="Paper" id="paper" onclick="playGame('paper')">
-      <img src="scissors.jpeg" alt="Scissors" id="scissors" onclick="playGame('scissors')">
-    </div>
-    <p id="result"></p>
-    <div class="score">
-      <p>Score: <span id="score">0</span></p>
-    </div>
+    <button onclick="play('rock')">Rock</button>
+    <button onclick="play('paper')">Paper</button>
+    <button onclick="play('scissors')">Scissors</button>
+    <h3 id="result"></h3>
+    <h3>Score: <span id="score">0</span></h3>
   </div>
-  <script src="script.js"></script>
+  <script>
+    let score = 0;
+    function play(player) {
+      let choices = ['rock', 'paper', 'scissors'];
+      let comp = choices[Math.floor(Math.random() * 3)];
+      let res = '';
+      if (player === comp) res = `Tie! Both chose ${player}`;
+      else if ((player=='rock' && comp=='scissors') || (player=='paper' && comp=='rock') || (player=='scissors' && comp=='paper')) {
+        res = `You win! ${player} beats ${comp}`;
+        score++;
+      } else {
+        res = `You lose! ${comp} beats ${player}`;
+        score = Math.max(0, score - 1);
+      }
+      document.getElementById('result').innerText = res;
+      document.getElementById('score').innerText = score;
+    }
+  </script>
 </body>
 </html>

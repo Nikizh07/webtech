@@ -1,22 +1,31 @@
 const express = require('express');
-const dotenv = require('dotenv');
-const mongoose = require('mongoose');
-
-dotenv.config();
 
 const app = express();
 app.use(express.json());
+
+let products = [
+  { id: 1, name: "Laptop", price: 999 },
+  { id: 2, name: "Phone", price: 499 }
+];
+let nextId = 3;
 
 app.get('/', (req, res) => {
   res.send('Welcome to Online Store API');
 });
 
-mongoose.connect(process.env.MONGO_URI)
-  .then(() => console.log('✅ MongoDB Connected Successfully'))
-  .catch(err => console.log('❌ MongoDB Connection Error:', err));
+// Get all products
+app.get('/api/products', (req, res) => {
+    res.json(products);
+});
 
-const productRoutes = require('./routes/productRoutes');
-app.use('/api/products', productRoutes);
+// Add a new product
+app.post('/api/products', (req, res) => {
+    const { name, price } = req.body;
+    if (!name || !price) return res.status(400).json({ error: "Missing name or price" });
+    const p = { id: nextId++, name, price };
+    products.push(p);
+    res.json(p);
+});
 
-const PORT = process.env.PORT || 5000;
-app.listen(PORT, () => console.log(`Server running on port ${PORT}`));
+const PORT = 5000;
+app.listen(PORT, () => console.log(`Exp6 Store API Server running on port ${PORT}`));

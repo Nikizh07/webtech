@@ -1,45 +1,29 @@
 <!DOCTYPE html>
-<html lang="en">
+<html>
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>QR Code Generator</title>
-  <link rel="stylesheet" href="style.css">
+  <style>
+    body { font-family: sans-serif; text-align: center; padding: 50px; background: #e0f7fa; }
+    form { background: white; padding: 20px; display: inline-block; border-radius: 10px; box-shadow: 0 0 10px #ccc; }
+    input, select, button { margin: 10px; padding: 10px; }
+  </style>
 </head>
 <body>
-  <div class="container">
-    <h1>QR Code Generator</h1>
-    <form method="POST" action="">
-      <input
-        type="text"
-        name="qrtext"
-        placeholder="Enter product name:"
-        value="<?php echo isset($_POST['qrtext']) ? htmlspecialchars($_POST['qrtext']) : ''; ?>"
-        required>
-      <select name="size">
-        <option value="5" <?php echo (isset($_POST['size']) && $_POST['size'] == 5) ? 'selected' : ''; ?>>Small</option>
-        <option value="10" <?php echo (isset($_POST['size']) && $_POST['size'] == 10) ? 'selected' : ''; ?>>Medium</option>
-        <option value="15" <?php echo (isset($_POST['size']) && $_POST['size'] == 15) ? 'selected' : ''; ?>>Large</option>
-      </select>
-      <button type="submit" name="generate">Generate QR Code</button>
-    </form>
-    <?php
-    if (isset($_POST['generate'])) {
-      include 'phpqrcode/qrlib.php';
-      $text = $_POST['qrtext'];
-      $size = $_POST['size'];
-      $filePath = 'qrcode.png';
-      QRcode::png($text, $filePath, QR_ECLEVEL_L, $size);
-      echo "<div class='result'>";
-      echo "<h2>Generated QR Code:</h2>";
-      echo "<img src='$filePath' alt='QR Code'>";
-      echo "</div>";
-    } else {
-      echo "<div class='placeholder'>";
-      echo "<h2>Enter text or URL to generate your QR code</h2>";
-      echo "</div>";
-    }
-    ?>
-  </div>
+  <h1>QR Code Generator</h1>
+  <form method="POST">
+    <input type="text" name="text" placeholder="Enter text" required>
+    <select name="size">
+      <option value="5">Small</option><option value="10">Medium</option>
+    </select>
+    <button type="submit" name="submit">Generate</button>
+  </form>
+  <?php
+  if (isset($_POST['submit'])) {
+    include 'phpqrcode/qrlib.php';
+    $file = 'qrcode.png';
+    QRcode::png($_POST['text'], $file, QR_ECLEVEL_L, $_POST['size']);
+    echo "<br><img src='$file' alt='QR Code'>";
+  }
+  ?>
 </body>
 </html>
